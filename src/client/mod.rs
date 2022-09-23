@@ -320,7 +320,7 @@ impl Client {
         } else if create_mode.is_container() {
             OpCode::CreateContainer
         } else {
-            OpCode::Create2
+            OpCode::Create
         };
         let flags = create_mode.as_flags(ttl != 0);
         let request = CreateRequest { path: RootedPath::new(&self.root, leaf), data, acls: options.acls, flags, ttl };
@@ -331,8 +331,8 @@ impl Client {
             let server_path = record::unmarshal_entity::<&str>(&"server path", &mut buf)?;
             let client_path = util::strip_root_path(server_path, &self.root)?;
             let sequence = if sequential { Self::parse_sequence(client_path, path)? } else { CreateSequence(-1) };
-            let stat = record::unmarshal::<Stat>(&mut buf)?;
-            Ok((stat, sequence))
+            // let stat = record::unmarshal::<Stat>(&mut buf)?;
+            Ok((Stat::default(), sequence))
         })
     }
 

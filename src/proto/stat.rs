@@ -3,7 +3,7 @@ use bytes::BufMut;
 use crate::record::{ReadingBuf, SerializableRecord, StaticRecord, UnsafeBuf, UnsafeRead};
 
 /// ZooKeeper node stat.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub struct Stat {
     /// The zxid of the change that caused this znode to be created.
     pub czxid: i64,
