@@ -60,9 +60,10 @@ impl<'a> DeserializableRecord<'a> for ConnectResponse<'a> {
             return Err(DeserializeError::Invalid(&"unsupported server version"));
         } else if session_timeout < 0 {
             return Err(DeserializeError::Invalid(&"invalid negotiated session timeout"));
-        } else if session_id < 0 {
-            return Err(DeserializeError::Invalid(&"invalid session id"));
-        }
+        } 
+        // else if session_id < 0 {
+        //     return Err(DeserializeError::Invalid(&"invalid session id"));
+        // }
         let len = unsafe { buf.get_unchecked_i32() };
         if len <= 0 || len != (buf.len() - 1) as i32 {
             return Err(DeserializeError::Invalid(&"invalid session password length"));
